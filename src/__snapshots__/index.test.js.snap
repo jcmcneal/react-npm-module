@@ -2,6 +2,6 @@
 
 exports[`Component basic snapshot 1`] = `
 <div>
-  Hello Worlds.
+  Hello Worlds!
 </div>
 `;

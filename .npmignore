@@ -9,8 +9,10 @@ _config.yml
 .gitignore
 .nvmrc
 .vscode/
-CHANGELOG.md
 *.tgz
+app/
+CHANGELOG.md
+scripts/
 src/
 webpack.config.js
 yarn.lock
