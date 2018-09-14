@@ -64,6 +64,13 @@ const webpack = {
             },
         }),
     ],
+    stats: {
+        builtAt: false,
+        hash: false,
+        modules: false,
+        version: false,
+        warnings: false,
+    },
 };
 
 module.exports = webpack;

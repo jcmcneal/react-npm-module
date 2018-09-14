@@ -38,6 +38,7 @@ if (isDev) {
         },
         publicPath,
         openPage: server.root,
+        stats: webpack.stats,
     };
     webpack.optimization = {
         minimize: false,
