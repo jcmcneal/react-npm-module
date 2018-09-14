@@ -13,6 +13,13 @@ const webpack = {
     module: {
         rules: [
             {
+                enforce: 'pre',
+                test: /\.js$/,
+                exclude: /node_modules/,
+                include: path.resolve('src/index.js'),
+                loader: 'eslint-loader',
+            },
+            {
                 test: /\.js$/,
                 exclude: ['node_modules'],
                 loader: 'babel-loader',
