@@ -7,7 +7,7 @@
     "start": "export NODE_ENV=development; ./scripts/run.dev.js",
     "dev": "webpack --watch --mode=development",
     "build": "export NODE_ENV=production; webpack --progress --optimize-minimize --mode=production",
-    "app:dev": "webpack-dev-server --open --mode='development' --hot --inline --config app/webpack.config.js",
+    "app:dev": "webpack-dev-server --open --mode='development' --hotOnly --config app/webpack.config.js",
     "app:build": "yarn build --config app/webpack.config.js",
     "prepublish": "rm -rf ./dist && yarn build",
     "test": "jest --watch --config=jest.config.json"
@@ -38,6 +38,7 @@
     "jest": "^23.6.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
+    "react-hot-loader": "^4.3.11",
     "react-test-renderer": "^16.5.1",
     "style-loader": "^0.23.0",
     "webpack": "^4.18.1",

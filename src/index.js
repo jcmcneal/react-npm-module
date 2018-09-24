@@ -1,7 +1,7 @@
 import React from 'react';
 
 const App = () => (
-    <div>Hello Worlds!</div>
+    <div>This is the npm module</div>
 );
 
 export default App;

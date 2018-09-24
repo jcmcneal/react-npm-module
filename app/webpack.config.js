@@ -2,18 +2,19 @@
  * Called with `yarn app:dev` || `yarn app:build`
  */
 const path = require('path');
-const webpack = require('../webpack.config');
+const Webpack = require('webpack');
+const config = require('../webpack.config');
 
 /** Is Development */
 const isDev = process.env.NODE_ENV !== 'production';
 
 /** Webpack Config */
-webpack.entry = path.join(__dirname, 'App.js');
-webpack.output = {
+config.entry = path.join(__dirname, 'App.js');
+config.output = {
     filename: 'app.bundle.js',
     path: path.join(__dirname, 'dist'),
 };
-webpack.externals = undefined;
+config.externals = undefined;
 
 /** Development */
 if (isDev) {
@@ -28,23 +29,24 @@ if (isDev) {
     };
     const publicPath = `${server.protocol}://${server.domain}:${server.port}/${server.path}`;
 
-    webpack.output.publicPath = publicPath;
-    webpack.devServer = {
-        port: server.port,
+    config.output.publicPath = publicPath;
+    config.devServer = {
         compress: true,
         index: server.index,
+        openPage: server.root,
         overlay: {
             warnings: false,
             errors: true,
         },
+        port: server.port,
         publicPath,
-        openPage: server.root,
-        stats: webpack.stats,
+        stats: config.stats,
     };
-    webpack.optimization = {
+    config.optimization = {
         minimize: false,
     };
+    config.plugins.push(new Webpack.HotModuleReplacementPlugin());
 }
 
 /** Export */
-module.exports = webpack;
+module.exports = config;
