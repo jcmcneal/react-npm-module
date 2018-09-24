@@ -1,6 +1,6 @@
 {
   "name": "react-npm-module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Boilerplate to create a FED NPM module",
   "main": "dist/bundle.min.js",
   "scripts": {
