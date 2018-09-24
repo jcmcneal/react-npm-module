@@ -3,13 +3,14 @@ All you need to build a react npm module. Includes a sandbox app for convenient 
 
 **This boilerplate is running:**
 
-    • React 16
+    • React
     • Webpack 4
     • Babel 7
     • ES6
     • Node v10
     • Eslint
     • Jest
+    • CSS Modules (Using Less)
 
 #### Get Started
 ```sh

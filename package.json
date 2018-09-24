@@ -1,5 +1,5 @@
 {
-  "name": "cat-fed-component",
+  "name": "react-npm-module",
   "version": "0.0.0",
   "description": "Boilerplate to create a FED NPM module",
   "main": "dist/bundle.min.js",

@@ -25,21 +25,20 @@ const webpack = {
                 loader: 'babel-loader',
             },
             {
+                /** Globals */
                 test: /(\.css)$/,
-                use: [{
-                    loader: 'style-loader',
-                    options: {
-                        hmr: false,
-                    },
-                }, {
-                    loader: 'css-loader',
-                    options: {
-                        modules: true,
-                        importLoaders: 1,
-                        sourceMap: false,
-                        localIdentName: '[local]_[hash:base64:5]',
-                    },
-                }],
+                use: [
+                    'style-loader',
+                    'css-loader',
+                ],
+            },
+            {
+                test: /(\.less)$/,
+                use: [
+                    'style-loader',
+                    'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[local]_[hash:base64:5]',
+                    'less-loader',
+                ],
             },
         ],
     },
