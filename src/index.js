@@ -1,7 +1,5 @@
-import React from 'react';
+import sleep from './Sleep/Sleep';
 
-const App = () => (
-    <div>This is the npm module</div>
-);
-
-export default App;
+export default {
+    sleep,
+};

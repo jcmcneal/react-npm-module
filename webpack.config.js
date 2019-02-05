@@ -1,14 +1,22 @@
+// "dev": "webpack --watch --mode=development",
+// "build": "export NODE_ENV=production; webpack --progress --optimize-minimize --mode=production",
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const args = require('minimist')(process.argv);
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
 const app = require('./package.json');
 
-const webpack = {
+// const isProd = process.env.NODE_ENV === 'production';
+
+const config = {
     entry: './src/index.js',
     output: {
         path: path.resolve('dist'),
         filename: path.basename(app.main),
         libraryTarget: 'umd',
         umdNamedDefine: true,
+        globalObject: 'this',
     },
     module: {
         rules: [
@@ -21,55 +29,43 @@ const webpack = {
             },
             {
                 test: /\.js$/,
-                exclude: ['node_modules'],
+                exclude: /node_modules/,
                 loader: 'babel-loader',
-            },
-            {
-                /** Globals */
-                test: /(\.css)$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                ],
-            },
-            {
-                test: /(\.less)$/,
-                use: [
-                    'style-loader',
-                    'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[local]_[hash:base64:5]',
-                    'less-loader',
-                ],
             },
         ],
     },
-    externals: {
-        // Don't bundle react
-        react: {
-            commonjs: 'react',
-            commonjs2: 'react',
-            amd: 'React',
-            root: 'React',
-        },
-    },
+    /** Don't bundle common dependencies */
+    externals: [
+        'deep-get-set',
+        /overstock-component-library/,
+        'object-assign',
+        'prop-types',
+        'query-string',
+        'react',
+        'reselect',
+    ],
     node: {
         Buffer: false,
     },
-    plugins: [
-        new UglifyJsPlugin({
-            uglifyOptions: {
-                mangle: true,
-                compress: {
-                    warnings: false,
-                    pure_getters: true,
-                    unsafe: true,
-                    unsafe_comps: true,
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    mangle: true,
+                    compress: {
+                        warnings: false,
+                        pure_getters: true,
+                        unsafe: true,
+                        unsafe_comps: true,
+                    },
+                    output: {
+                        comments: false,
+                    },
                 },
-                output: {
-                    comments: false,
-                },
-            },
-        }),
-    ],
+            }),
+        ],
+    },
+    plugins: [],
     stats: {
         builtAt: false,
         hash: false,
@@ -79,4 +75,7 @@ const webpack = {
     },
 };
 
-module.exports = webpack;
+// Analyze bundle with --analyze flag
+if (args.analyze) config.plugins.push(new BundleAnalyzerPlugin());
+
+module.exports = config;
